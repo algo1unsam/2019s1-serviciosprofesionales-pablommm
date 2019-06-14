@@ -17,6 +17,10 @@ describe "test de empresas " {
 	// empresas
 	const empresa1 = new Empresa(empleados = [ juana, melina, rocio ])
 	
+	test"universidad"	{
+		assert.equals(uRosario,juana.universidad())
+	}
+	
 	test" cuantasProvincias melina"{//son mas de 3 provincias
 		assert.that(melina.cuantasProvincias())
 	}
@@ -27,7 +31,7 @@ describe "test de empresas " {
 		assert.that(rocio.cuantasProvincias())
 	}
 	test" cuantasProvincias luciana"{//no son mas de 3 provincia
-		assert.that(luciana.cuantasProvincias())
+		assert.that(!luciana.cuantasProvincias())
 	}
 
 } //fin de describe

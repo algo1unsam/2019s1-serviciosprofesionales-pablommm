@@ -2,21 +2,36 @@ import universidades.*
 import empresa.*
 import profesionales.*
 
-class Solicitante{
+class Solicitante {
+
 	var property tipoDeSolicitante
-}
 
-
-class Persona {
-	var provincia
-	method atendidoPorProfesional(){
-		
+	method puedeSerAtendido(empresa) {
+		return tipoDeSolicitante.atendidoPorProfesional(empresa, self)
 	}
 }
 
-class Institucion{
-	var universidadesOk = []
-	method atendidoPorProfesional(){
-		
+
+object persona {
+
+	var property provinciaorigen 
+	
+	method serAtendido(empresa,solicitante){
+		return "prueba"
 	}
+	method atendidoPorProfesional(empresa, solicitante) {
+		return (empresa.empleados().provinciasDondePuedeTrabajar().asSet().intersection(self.provinciaorigen()).asSet())>0
+	}
+
 }
+
+object institucion {
+
+	var property universidadesOk = []
+
+	method atendidoPorProfesional(empresa, solicitante) {
+		return (empresa.empleados().provinciasDondePuedeTrabajar().asSet().intersection(self.universidadesOk()).asSet().size()) > 0
+	}
+
+}
+

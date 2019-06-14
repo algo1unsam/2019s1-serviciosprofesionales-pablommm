@@ -1,6 +1,6 @@
 import universidades.*
 import empresa.*
-
+import solicitante.*
 /*porque no puedo usar una super clase?? */
 // esta clase está completa, no necesita nada más
 class ProfesionalAsociado {

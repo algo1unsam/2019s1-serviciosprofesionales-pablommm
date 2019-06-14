@@ -1,7 +1,7 @@
 import universidades.*
 import empresa.*
 import profesionales.*
-
+import solicitante.*
 describe "test de empresas " {
 
 	// universidades
@@ -16,7 +16,9 @@ describe "test de empresas " {
 	const luciana = new ProfesionalLibre(universidad = uHurlingham, provinciasDondePuedeTrabajar = [ "SantaFe", "EntreRios" ], honorariosAdcionales = 3200)
 	// empresas
 	const empresa1 = new Empresa(empleados = [ juana, melina, rocio ])
-
+	//solicitante
+	const karen = new Solicitante(tipoDeSolicitante = persona)
+	
 	test"honorariosPorHora" {
 		assert.equals([ rocio ], empresa1.profesionalMasCaroQue())
 	}
@@ -30,6 +32,9 @@ describe "test de empresas " {
 	}
 	test "genteAcotada" {
 		assert.that( empresa1.genteAcotada())
+	}
+	test "puedeAtender" {
+		assert.that( empresa1.puedeAtender(karen))
 	}
 
 } //fin de describe

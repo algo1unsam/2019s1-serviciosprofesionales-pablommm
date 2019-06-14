@@ -17,8 +17,12 @@ describe "test de empresas " {
 	const luciana = new ProfesionalLibre(universidad = uHurlingham, provinciasDondePuedeTrabajar = [ "SantaFe", "EntreRios" ], honorariosAdcionales = 3200)
 	// empresas
 	const empresa1 = new Empresa(empleados = [ juana, melina, rocio ])
+	// solicitante
+	const fulanito = new Solicitante(tipoDeSolicitante = persona)
 	
-	
+	test"puedeSerAtendido"{
+		assert.that(fulanito.puedeSerAtendido(empresa1))
+	}
 	
 	
 	}
