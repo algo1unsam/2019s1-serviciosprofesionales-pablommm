@@ -1,0 +1,33 @@
+import universidades.*
+import empresa.*
+import profesionales.*
+
+describe "test de empresas " {
+
+	// universidades
+	const uSanMartin = new Universidades(provincia = "BsAs", honorariosPorHora = 3500)
+	const uRosario = new Universidades(provincia = "SantaFe", honorariosPorHora = 2800)
+	const uCorrientes = new Universidades(provincia = "Corrientes", honorariosPorHora = 4200)
+	const uHurlingham = new Universidades(provincia = "BsAs", honorariosPorHora = 8800)
+	// profesionales
+	const juana = new ProfesionalVinculado(universidad = uRosario)
+	const melina = new ProfesionalAsociado(universidad = uCorrientes)
+	const rocio = new ProfesionalLibre(universidad = uHurlingham, provinciasDondePuedeTrabajar = [ "SantaFe", "Cordoba", "BsAs" ], honorariosAdcionales = 5000)
+	const luciana = new ProfesionalLibre(universidad = uHurlingham, provinciasDondePuedeTrabajar = [ "SantaFe", "EntreRios" ], honorariosAdcionales = 3200)
+	// empresas
+	const empresa1 = new Empresa(empleados = [ juana, melina, rocio ])
+	
+	test" cuantasProvincias melina"{//son mas de 3 provincias
+		assert.that(melina.cuantasProvincias())
+	}
+	test" cuantasProvincias juana"{//son mas de 3 provincia
+		assert.that(juana.cuantasProvincias())
+	}
+	test" cuantasProvincias rocio"{//son mas de 3 provincia
+		assert.that(rocio.cuantasProvincias())
+	}
+	test" cuantasProvincias luciana"{//no son mas de 3 provincia
+		assert.that(luciana.cuantasProvincias())
+	}
+
+} //fin de describe
