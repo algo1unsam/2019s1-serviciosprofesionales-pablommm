@@ -6,10 +6,10 @@ import solicitante.*
 describe "test de empresas " {
 
 	// universidades
-	const uSanMartin = new Universidades(provincia = "BsAs", honorariosPorHora = 3500)
-	const uRosario = new Universidades(provincia = "SantaFe", honorariosPorHora = 2800)
-	const uCorrientes = new Universidades(provincia = "Corrientes", honorariosPorHora = 4200)
-	const uHurlingham = new Universidades(provincia = "BsAs", honorariosPorHora = 8800)
+	const uSanMartin = new Universidades(provincia = "BsAs", honorariosPorHora = 3500,donaciones =0 )
+	const uRosario = new Universidades(provincia = "SantaFe", honorariosPorHora = 2800,donaciones =0)
+	const uCorrientes = new Universidades(provincia = "Corrientes", honorariosPorHora = 4200,donaciones =0)
+	const uHurlingham = new Universidades(provincia = "BsAs", honorariosPorHora = 8800,donaciones =0)
 	// profesionales
 	const juana = new ProfesionalVinculado(universidad = uRosario)
 	const melina = new ProfesionalAsociado(universidad = uCorrientes)
@@ -18,10 +18,10 @@ describe "test de empresas " {
 	// empresas
 	const empresa1 = new Empresa(empleados = [ juana, melina, rocio ])
 	// solicitante
-	const fulanito = new Solicitante(tipoDeSolicitante = persona)
+	const fulanito = new Persona( provinciaorigen = "BsAs")
 	
 	test"puedeSerAtendido"{
-		assert.that(fulanito.puedeSerAtendido(empresa1))
+		assert.notThat(fulanito.puedeSerAtendido(empresa1))
 	}
 	
 	

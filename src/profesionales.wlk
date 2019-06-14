@@ -2,15 +2,15 @@ import universidades.*
 import empresa.*
 import solicitante.*
 
+class Profesional {
 
-class Profesional{
-	
 	method cobrarImporte(dinero)
+
 }
+
 /*porque no puedo usar una super clase?? */
 // esta clase está completa, no necesita nada más
-
-class ProfesionalAsociado inherits Profesional{
+class ProfesionalAsociado inherits Profesional {
 
 	var universidad
 
@@ -41,14 +41,15 @@ class ProfesionalAsociado inherits Profesional{
 	method cuantasProvincias() {
 		return ((self.provinciasDondePuedeTrabajar()).size()) >= 3
 	}
-	override method cobrarImporte(dinero){
+
+	override method cobrarImporte(dinero) {
 		asociacionProfesionalesLitoral.recibirDonacion(dinero)
 	}
 
 }
 
 // a esta clase le faltan métodos
-class ProfesionalVinculado inherits Profesional{
+class ProfesionalVinculado inherits Profesional {
 
 	var universidad
 
@@ -71,18 +72,19 @@ class ProfesionalVinculado inherits Profesional{
 	method cobraMasQue(parametro) {
 		return self.honorariosPorHora() > parametro
 	}
+
 	method cuantasProvincias() {
 		return ((self.provinciasDondePuedeTrabajar()).size()) >= 3
 	}
-	override method cobrarImporte(dinero){
-		
-		universidad.recibirDonacion(dinero/2)
+
+	override method cobrarImporte(dinero) {
+		universidad.recibirDonacion(dinero / 2)
 	}
 
 }
 
 // a esta clase le faltan atributos y métodos
-class ProfesionalLibre inherits Profesional{
+class ProfesionalLibre inherits Profesional {
 
 	var universidad
 	var importesExtra = 0
@@ -104,23 +106,29 @@ class ProfesionalLibre inherits Profesional{
 	method cobraMasQue(parametro) {
 		return self.honorariosPorHora() > parametro
 	}
+
 	method cuantasProvincias() {
 		return ((self.provinciasDondePuedeTrabajar()).size()) >= 3
 	}
-	override method cobrarImporte(dinero){
-		importesExtra =+ dinero		
+
+	override method cobrarImporte(dinero) {
+		importesExtra = +dinero
 	}
-	method darDinero(cantidad,profesional){
+
+	method darDinero(cantidad, profesional) {
 		profesional.cobrarImporte(cantidad)
-		importesExtra-= cantidad
+		importesExtra -= cantidad
 	}
 
 }
 
-object asociacionProfesionalesLitoral{
+object asociacionProfesionalesLitoral {
+
 	var totalRecaudado
-	method recibirDonacion(money){
-		totalRecaudado =+ money
+
+	method recibirDonacion(money) {
+		totalRecaudado = +money
 	}
+
 }
 
