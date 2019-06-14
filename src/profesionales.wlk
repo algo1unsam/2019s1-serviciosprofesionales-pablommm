@@ -1,9 +1,16 @@
 import universidades.*
 import empresa.*
 import solicitante.*
+
+
+class Profesional{
+	
+	method cobrarImporte(dinero)
+}
 /*porque no puedo usar una super clase?? */
 // esta clase está completa, no necesita nada más
-class ProfesionalAsociado {
+
+class ProfesionalAsociado inherits Profesional{
 
 	var universidad
 
@@ -34,11 +41,14 @@ class ProfesionalAsociado {
 	method cuantasProvincias() {
 		return ((self.provinciasDondePuedeTrabajar()).size()) >= 3
 	}
+	override method cobrarImporte(dinero){
+		asociacionProfesionalesLitoral.recibirDonacion(dinero)
+	}
 
 }
 
 // a esta clase le faltan métodos
-class ProfesionalVinculado {
+class ProfesionalVinculado inherits Profesional{
 
 	var universidad
 
@@ -64,13 +74,18 @@ class ProfesionalVinculado {
 	method cuantasProvincias() {
 		return ((self.provinciasDondePuedeTrabajar()).size()) >= 3
 	}
+	override method cobrarImporte(dinero){
+		
+		universidad.recibirDonacion(dinero/2)
+	}
 
 }
 
 // a esta clase le faltan atributos y métodos
-class ProfesionalLibre {
+class ProfesionalLibre inherits Profesional{
 
 	var universidad
+	var importesExtra = 0
 	var property provinciasDondePuedeTrabajar = []
 	var property honorariosAdcionales
 
@@ -92,6 +107,20 @@ class ProfesionalLibre {
 	method cuantasProvincias() {
 		return ((self.provinciasDondePuedeTrabajar()).size()) >= 3
 	}
+	override method cobrarImporte(dinero){
+		importesExtra =+ dinero		
+	}
+	method darDinero(cantidad,profesional){
+		profesional.cobrarImporte(cantidad)
+		importesExtra-= cantidad
+	}
 
+}
+
+object asociacionProfesionalesLitoral{
+	var totalRecaudado
+	method recibirDonacion(money){
+		totalRecaudado =+ money
+	}
 }
 
