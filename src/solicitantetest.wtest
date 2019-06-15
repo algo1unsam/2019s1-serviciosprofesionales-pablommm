@@ -19,9 +19,13 @@ describe "test de empresas " {
 	const empresa1 = new Empresa(empleados = [ juana, melina, rocio ])
 	// solicitante
 	const fulanito = new Persona( provinciaorigen = "BsAs")
+	const hogwarts = new Institucion(universidadesOk=[uSanMartin,uRosario])
 	
-	test"puedeSerAtendido"{
+	test"puedeSerAtendido persona"{
 		assert.notThat(fulanito.puedeSerAtendido(empresa1))
+	}
+	test"puedeSerAtendido institucion"{
+		assert.notThat(hogwarts.puedeSerAtendido(empresa1))
 	}
 	
 	

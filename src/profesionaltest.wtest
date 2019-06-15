@@ -5,10 +5,10 @@ import profesionales.*
 describe "test de empresas " {
 
 	// universidades
-	const uSanMartin = new Universidades(provincia = "BsAs", honorariosPorHora = 3500)
-	const uRosario = new Universidades(provincia = "SantaFe", honorariosPorHora = 2800)
-	const uCorrientes = new Universidades(provincia = "Corrientes", honorariosPorHora = 4200)
-	const uHurlingham = new Universidades(provincia = "BsAs", honorariosPorHora = 8800)
+	const uSanMartin = new Universidades(provincia = "BsAs", honorariosPorHora = 3500,donaciones =0 )
+	const uRosario = new Universidades(provincia = "SantaFe", honorariosPorHora = 2800,donaciones =0)
+	const uCorrientes = new Universidades(provincia = "Corrientes", honorariosPorHora = 4200,donaciones =0)
+	const uHurlingham = new Universidades(provincia = "BsAs", honorariosPorHora = 8800,donaciones =0)
 	// profesionales
 	const juana = new ProfesionalVinculado(universidad = uRosario)
 	const melina = new ProfesionalAsociado(universidad = uCorrientes)
@@ -32,6 +32,18 @@ describe "test de empresas " {
 	}
 	test" cuantasProvincias luciana"{//no son mas de 3 provincia
 		assert.that(!luciana.cuantasProvincias())
+	}
+	test" cobrarImporte luciana"{//no son mas de 3 provincia
+		luciana.cobrarImporte(5000)
+		assert.equals(5000,luciana.importesExtra())
+	}
+	test" cobrarImporte juana"{//no son mas de 3 provincia
+		juana.cobrarImporte(5000)
+		assert.equals(2500,juana.universidad().donaciones())
+	}
+	test" cobrarImporte melina"{//no son mas de 3 provincia
+		melina.cobrarImporte(5000)
+		assert.equals(5000,asociacionProfesionalesLitoral.totalRecaudado())
 	}
 
 } //fin de describe

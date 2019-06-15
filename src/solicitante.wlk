@@ -31,7 +31,7 @@ class Institucion inherits Solicitante{
 	var property universidadesOk = []
 
 	method puedeSerAtendido(empresa) {
-		return (empresa.empleados().provinciasDondePuedeTrabajar().asSet().intersection(self.universidadesOk()).asSet().size()) > 0
+		return (empresa.lugaresDeServicio().asSet().intersection(universidadesOk)).size() > 0
 	}
 
 }
