@@ -42,7 +42,7 @@ class Empresa {
 
 	method profesionalesParaServicio(solicitante) {
 		if (solicitante.tipoDeSolicitante() == "persona") {
-			return empleados.asSet().intersection(solicitante.provinciaorigen())
+			return empleados.contains(solicitante.provinciaorigen())
 		} else {
 			return empleados.asSet().intersection(solicitante.universidadesOk())
 		}
@@ -50,10 +50,10 @@ class Empresa {
 
 	method darServicio(solicitante) {
 		if (self.atenderSolicitante(solicitante)) {
-			[ self.profesionalesParaServicio(solicitante) ].first().cobrarImporte([ self.profesionalesParaServicio(solicitante) ].first().honorariosPorHora())
+			 self.profesionalesParaServicio(solicitante).cobrarImporte(self.profesionalesParaServicio(solicitante).honorariosPorHora())
 			clientes.add(solicitante)
 		} else {
-		 self.error("todos giles ") 
+		 self.error("no puede ser atendido") 
 		}
 	}
 

@@ -37,6 +37,12 @@ describe "test de empresas " {
 		luciana.cobrarImporte(5000)
 		assert.equals(5000,luciana.importesExtra())
 	}
+	test" darDinero luciana a juana"{//no son mas de 3 provincia
+		luciana.cobrarImporte(5000)
+		luciana.darDinero(1000,juana)
+		assert.equals(500,juana.universidad().donaciones())
+		assert.equals(4000,luciana.importesExtra())
+	}
 	test" cobrarImporte juana"{//no son mas de 3 provincia
 		juana.cobrarImporte(5000)
 		assert.equals(2500,juana.universidad().donaciones())

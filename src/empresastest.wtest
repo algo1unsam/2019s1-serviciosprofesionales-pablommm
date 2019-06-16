@@ -37,10 +37,21 @@ describe "test de empresas " {
 	}
 	test "atenderSolicitante institucion" {
 		assert.notThat( empresa1.atenderSolicitante(hogwarts))
-	}	
-	test "darServicio" {
+	}
+	test "profesionalesParaServicio persona" {// me tiene que devolver una lista de profesionales que pueden dar el servicio
+		assert.equals([],empresa1.profesionalesParaServicio(fulanito))
+	}
+	test "profesionalesParaServicio institucion" {// me tiene que devolver una lista de profesionales que pueden dar el servicio
+		assert.equals([],empresa1.profesionalesParaServicio(hogwarts))
+	}		
+	test "darServicio a persona" {
 		empresa1.darServicio()
-		assert.notThat( empresa1.darServicio(fulanito))}
+		assert.notThat(empresa1.darServicio(fulanito))
+	}
+	test "darServicio a institucion" {
+		empresa1.darServicio()
+		assert.notThat(empresa1.darServicio(hogwarts))
+	}
 		
 
 } //fin de describe
