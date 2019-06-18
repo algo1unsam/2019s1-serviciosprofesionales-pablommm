@@ -9,4 +9,5 @@ class Universidades {
 	method recibirDonacion(money){
 		donaciones =+ money
 	}
+	
 }

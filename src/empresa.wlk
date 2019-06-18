@@ -13,47 +13,47 @@ class Empresa {
 	}
 
 	method lugaresDeServicio() { // me va a retornar todos las provincias donde trabaja
-		return empleados.map{ persona => persona.provinciasDondePuedeTrabajar() }
+		return empleados.flatMap{ persona => persona.provinciasDondePuedeTrabajar() }.asSet() // no tocar
 	}
 
-	method profesionalMasCaroQue() {
+	method profesionalMasCaroQue() {//me compara los honorarios con el parametro que ingreso
 		return empleados.filter{ persona => persona.cobraMasQue(honorarioRferencia) }
 	}
 
-	method universidadesFormadoras() {
-		return empleados.map{ profe => profe.universidad() }.asList()
+	method universidadesFormadoras() {// me devuelve las universidades de mis empleados
+		return empleados.map{ profe => profe.universidad() }.asSet()
 	}
 
-	method profesionalMasBarato() {
+	method profesionalMasBarato() {// el profesional que cobra menos
 		return empleados.min{ person => person.honorariosPorHora() }
 	}
 
-	method genteAcotada() {
+	method genteAcotada() {// te confirma si todos los empleados trabajan 3 provincias o mas
 		return empleados.all{ person => person.cuantasProvincias() }
 	}
 
-	method atenderSolicitante(solicitante) { // aun no esta bien pulido
+	method atenderSolicitante(solicitante) { //te confirma si podes atender al solicitante o no
 		if (solicitante.tipoDeSolicitante() == "persona") {
-			return empleados.contains(solicitante.provinciaorigen())
-		} else {
-			return empleados.asSet().intersection(solicitante.universidadesOk()).size() > 0
+			return self.lugaresDeServicio().contains(solicitante.provinciaorigen())
+		} else {			
+		 return (self.universidadesFormadoras().asSet().intersection(solicitante.universidadesOk().asSet())).size() > 0
 		}
 	}
-
-	method profesionalesParaServicio(solicitante) {
-		if (solicitante.tipoDeSolicitante() == "persona") {
-			return empleados.contains(solicitante.provinciaorigen())
+	method profesionalesParaServicio(solicitante) {// te devuelve profesional que puede atender
+		if (solicitante.tipoDeSolicitante() == "persona") {//este esta mal lo tengo que reahacer
+		
+			return self.lugaresDeServicio().asSet().intersection(solicitante.provinciaorigen().asSet())
+			
 		} else {
-			return empleados.asSet().intersection(solicitante.universidadesOk())
+			return empleados.universidad().asSet().intersection(solicitante.universidadesOk().asSet())
 		}
 	}
-
-	method darServicio(solicitante) {
+	method darServicio(solicitante) {//este esta mal rehacer
 		if (self.atenderSolicitante(solicitante)) {
-			 self.profesionalesParaServicio(solicitante).cobrarImporte(self.profesionalesParaServicio(solicitante).honorariosPorHora())
+			self.profesionalesParaServicio(solicitante).cobrarImporte(self.profesionalesParaServicio(solicitante).honorariosPorHora())
 			clientes.add(solicitante)
 		} else {
-		 self.error("no puede ser atendido") 
+			self.error("no puede ser atendido")
 		}
 	}
 

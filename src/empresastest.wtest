@@ -5,48 +5,52 @@ import solicitante.*
 describe "test de empresas " {
 
 	// universidades
-	const uSanMartin = new Universidades(provincia = "BsAs", honorariosPorHora = 3500,donaciones =0 )
-	const uRosario = new Universidades(provincia = "SantaFe", honorariosPorHora = 2800,donaciones =0)
-	const uCorrientes = new Universidades(provincia = "Corrientes", honorariosPorHora = 4200,donaciones =0)
-	const uHurlingham = new Universidades(provincia = "BsAs", honorariosPorHora = 8800,donaciones =0)
+	const uSanMartin = new Universidades(provincia = #{"BsAs"}, honorariosPorHora = 3500,donaciones =0 )
+	const uRosario = new Universidades(provincia = #{"Santa Fe"}, honorariosPorHora = 2800,donaciones =0)
+	const uCorrientes = new Universidades(provincia = #{"Corrientes"}, honorariosPorHora = 4200,donaciones =0)
+	const uHurlingham = new Universidades(provincia = #{"BsAs"}, honorariosPorHora = 8800,donaciones =0)
 	// profesionales
 	const juana = new ProfesionalVinculado(universidad = uRosario)
 	const melina = new ProfesionalAsociado(universidad = uCorrientes)
-	const rocio = new ProfesionalLibre(universidad = uHurlingham, provinciasDondePuedeTrabajar = [ "SantaFe", "Cordoba", "BsAs" ], honorariosAdcionales = 5000)
-	const luciana = new ProfesionalLibre(universidad = uHurlingham, provinciasDondePuedeTrabajar = [ "SantaFe", "EntreRios" ], honorariosAdcionales = 3200)
+	const rocio = new ProfesionalLibre(universidad = uHurlingham, provinciasDondePuedeTrabajar = #{ "Santa Fe", "Cordoba", "BsAs" }, honorariosAdcionales = 5000)
+	const luciana = new ProfesionalLibre(universidad = uHurlingham, provinciasDondePuedeTrabajar = #{ "Santa Fe", "Entre Rios", "Cordoba" }, honorariosAdcionales = 3200)
 	// empresas
-	const empresa1 = new Empresa(empleados = [ juana, melina, rocio ])
+	const empresa1 = new Empresa(empleados = [ juana, melina, rocio])
+	const empresa2 = new Empresa(empleados = [ juana, melina, rocio,luciana])
 	// solicitante
 	const fulanito = new Persona( provinciaorigen = "BsAs")
-	const hogwarts = new Institucion(universidadesOk=[uSanMartin,uRosario])
+	const hogwarts = new Institucion(universidadesOk=#{uSanMartin,uRosario,uCorrientes,uHurlingham})
 	
-	test"honorariosPorHora" {
+	test"honorariosPorHora" { 
 		assert.equals([ rocio ], empresa1.profesionalMasCaroQue())
 	}
 	test "universidadesFormadoras" {
-		assert.equals([ uRosario, uCorrientes, uHurlingham ], empresa1.universidadesFormadoras())
+		assert.equals(#{ uRosario, uCorrientes, uHurlingham }, empresa1.universidadesFormadoras())
+	}
+	test "lugaresDeServicio " {
+		assert.equals(#{ "BsAs","Cordoba","Corrientes","Entre Rios","Santa Fe" }, empresa1.lugaresDeServicio())
 	}
 	test "profesionalMasBarato" {
 		assert.equals(juana, empresa1.profesionalMasBarato())
 	}
-	test "genteAcotada" {
-		assert.that( empresa1.genteAcotada())
+	test "genteAcotada" {// es bien, no todos los prof tiene 3 provincias
+		assert.notThat( empresa1.genteAcotada())
 	}
 	test "atenderSolicitante persona" {
-		assert.notThat( empresa1.atenderSolicitante(fulanito))
+		assert.that( empresa1.atenderSolicitante(fulanito))
 	}
 	test "atenderSolicitante institucion" {
-		assert.notThat( empresa1.atenderSolicitante(hogwarts))
+		assert.that(empresa2.atenderSolicitante(hogwarts))
 	}
 	test "profesionalesParaServicio persona" {// me tiene que devolver una lista de profesionales que pueden dar el servicio
-		assert.equals([],empresa1.profesionalesParaServicio(fulanito))
+		assert.equals([luciana],empresa1.profesionalesParaServicio(fulanito))
 	}
 	test "profesionalesParaServicio institucion" {// me tiene que devolver una lista de profesionales que pueden dar el servicio
 		assert.equals([],empresa1.profesionalesParaServicio(hogwarts))
 	}		
 	test "darServicio a persona" {
 		empresa1.darServicio()
-		assert.notThat(empresa1.darServicio(fulanito))
+		assert.that(empresa1.darServicio(fulanito))
 	}
 	test "darServicio a institucion" {
 		empresa1.darServicio()

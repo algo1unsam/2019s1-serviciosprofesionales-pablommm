@@ -6,9 +6,7 @@ class Profesional {
 
 	method cobrarImporte(dinero)
 
-	}
-
-
+}
 
 /*porque no puedo usar una super clase?? */
 // esta clase está completa, no necesita nada más
@@ -29,7 +27,7 @@ class ProfesionalAsociado inherits Profesional {
 	}
 
 	method provinciasDondePuedeTrabajar() {
-		return #{ "Entre Ríos", "Corrientes", "Santa Fe" }
+		return #{ "Entre Rios", "Corrientes", "Santa Fe" }
 	}
 
 	method honorariosPorHora() {
@@ -90,7 +88,7 @@ class ProfesionalLibre inherits Profesional {
 
 	var universidad
 	var property importesExtra = 0
-	var property provinciasDondePuedeTrabajar = []
+	var property provinciasDondePuedeTrabajar = #{}
 	var property honorariosAdcionales
 
 	method universidad() {
